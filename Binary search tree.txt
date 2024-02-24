@@ -1,0 +1,127 @@
+import java.util.*;
+
+class Node{
+    int data;
+    Node left,right;
+    Node(int item)
+    {
+    data=item;
+    left=null;
+     right=null;
+    }
+}
+class Binary{
+   static Scanner sc= new Scanner(System.in);
+    Node root;
+     Binary(){
+        root=null;
+    }
+    void inorderrec(Node root){
+        if(root!=null){
+           inorderrec(root.left);
+           System.out.print(root.data + " ");
+           inorderrec(root.right);
+        }
+    }
+     void rev(Node root){
+        if(root!=null){
+         rev(root.right);
+           System.out.print(root.data + " ");
+          
+        rev(root.left);
+        }
+    }
+    void preorder(Node root){
+        if(root!=null){
+            System.out.print(root.data + " ");
+        preorder(root.left);
+         preorder(root.right);
+        
+        }
+    }
+     void postorder(Node root){
+        if(root!=null){
+           
+        postorder(root.left);
+         postorder(root.right);
+          System.out.print(root.data + " ");
+        
+        }
+        
+    }
+     void insert(int data){
+        root=insertrec(root, data);
+    }
+    Node insertrec(Node root,int data){
+         if(root==null){
+         root=new Node(data);
+         return root;
+         }
+         
+         if(data<root.data){
+             root.left=insertrec(root.left,data);
+         }
+        else if(data>root.data){
+             root.right=insertrec(root.right, data);
+         }
+         return root;
+     }
+   void present(Node root, int v) {
+        if (root == null) {
+            System.out.println(v+" is not present");
+        } else {
+            if (root.data == v) {
+                System.out.println(v+" is present");
+            } else if (v < root.data) {
+                present(root.left, v);
+            } else if (v > root.data) {
+                present(root.right, v);
+            }
+        }
+    }
+    public static void main(String arg[]){
+        Binary B=new Binary();
+        System.out.println("Enter Number Of Elements");
+        int n=sc.nextInt();
+        System.out.println("Enter the elements up to "+ n);
+        for(int i=0;i<n;i++){
+            int v=sc.nextInt();
+            B.insert(v);
+        }
+        while(true){
+           
+            System.out.println(" 1.InOrder\n 2.PreOrder\n 3.PostOrder\n 4.Search the Element\n 5.Reverse\n Others The Code Completed");
+             int ch=sc.nextInt();
+            switch(ch){
+                case 1:
+        System.out.println("Elements in InOrder");
+        B.inorderrec(B.root);
+        System.out.println();
+        break;
+        case 2:
+        System.out.println("Elements in PreOrder");
+        B.preorder(B.root);
+        System.out.println();
+        break;
+        case 3:
+        System.out.println("Elements in PostOrder");
+        B.postorder(B.root);
+        System.out.println();
+        break;
+        case 4:
+        System.out.println("Enter the Element for Search");
+        int v=sc.nextInt();
+        B.present(B.root,v); 
+       System.out.println();
+       break;
+       case 5:
+       System.out.println("Reverse the Element");
+        B.rev(B.root);
+        break;
+        default:
+        System.out.println("Completed");
+        System.exit(0);
+            }
+        }
+    }
+}
